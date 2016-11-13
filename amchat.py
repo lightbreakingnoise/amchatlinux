@@ -17,7 +17,6 @@ jpgnum = 0
 css = b"""
 #bordered {
 	border-bottom: 1px dotted white;
-	font: Cantarell;
 }
 
 #blued {
@@ -85,10 +84,14 @@ class AMGrid(Gtk.Grid):
 		tevi.override_background_color(Gtk.StateFlags.NORMAL, Gdk.RGBA(0.0, 0.0, 0.0, 0.0))
 		tevi.set_name("txted")
 		tevi.set_justification(Gtk.Justification.FILL)
+		tevi.connect("size-allocate", self.backsize)
 		self.attach(tevi, 1, 2, 1, 1)
 		
 		self.set_name("bordered")
 		self.show_all()
+
+	def backsize(self, t, s):
+		t.set_size_request(s.width - 1, -1)
 
 class AMWindow(Gtk.Window):
 	def __init__(self):
